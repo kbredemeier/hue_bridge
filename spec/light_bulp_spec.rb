@@ -4,9 +4,9 @@ module HueBridge
   describe LightBulp do
     subject do
       LightBulp.new(
-        '10.100.198.4',
-        '871baa6b48b3a42af620f2509a1f',
-        1
+        hue_bridge_ip: '10.100.198.4',
+        user_id: '871baa6b48b3a42af620f2509a1f',
+        light_bulp_id: 1
       )
     end
 

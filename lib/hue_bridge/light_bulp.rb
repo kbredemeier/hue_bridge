@@ -6,14 +6,15 @@ module HueBridge
   # light on, off and to toggle it.
   #
   class LightBulp
-    # @param [String] ip The Hue Bridge's IP
-    # @param [String] user_id The user id to access the api
-    # @param [Integer] light_bulp_id The id of the light bulp
+    # @param [Hash] options LightBulp options
+    # @option options [String] :hue_bridge_ip The Hue Bridge's IP
+    # @option options [String] :user_id The user id to access the api
+    # @option options [Integer] :light_bulp_id The id of the light bulp
     #
-    def initialize(ip, user_id, light_bulp_id)
-      @light_bulp_id = light_bulp_id
-      @user_id = user_id
-      @ip = ip
+    def initialize(options = {})
+      @light_bulp_id = options.fetch(:light_bulp_id)
+      @user_id = options.fetch(:user_id)
+      @ip = options.fetch(:hue_bridge_ip)
     end
 
     # Toggles the light bulp and returns it's state.
