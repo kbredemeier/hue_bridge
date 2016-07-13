@@ -1,4 +1,4 @@
-require 'rest-client'
+require 'net/http'
 require 'json'
 
 module HueBridge
@@ -63,12 +63,12 @@ module HueBridge
     end
 
     def put(resource, params)
-      RestClient.put(url(resource), JSON.generate(params))
+      http = Net::HTTP.new(@ip)
+      http.request_put("/#{path}/#{resource}", JSON.generate(params))
     end
 
-    def url(resource = nil)
-      File.join @ip, 'api', @user_id,
-        'lights', @light_bulp_id.to_s, resource.to_s
+    def path
+      File.join 'api', @user_id, 'lights', @light_bulp_id.to_s
     end
   end
 end
