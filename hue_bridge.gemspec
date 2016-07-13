@@ -7,10 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "hue_bridge"
   spec.version       = HueBridge::VERSION
   spec.authors       = ["Kristopher Bredemeier"]
-  spec.email         = ["kb@i22.de"]
+  spec.email         = ["k.bredemeier@gmail.com"]
 
   spec.summary       = %q{Gem to controll Philips hue lights with ruby}
   spec.description   = %q{Gem to controll Philips hue lights with ruby}
+  spec.homepage      = %q{https://github.com/kbredemeier/hue_bridge}
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
