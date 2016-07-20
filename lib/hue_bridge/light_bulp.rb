@@ -6,6 +6,8 @@ module HueBridge
   # light on, off and to toggle it.
   #
   class LightBulp
+    attr_reader :power
+
     # @param [Hash] options LightBulp options
     # @option options [String] :hue_bridge_ip The Hue Bridge's IP
     # @option options [String] :user_id The user id to access the api
@@ -18,27 +20,50 @@ module HueBridge
     end
 
     # Toggles the light bulp and returns it's state.
-    # @return [Boolean] The state
+    # @return [Boolean] success of the operation
     #
     def toggle
-      response = put("state", on: !@state)
-      @state = get_state_from_response(response)
+      @power ||= false
+      response = put('state', on: !@power)
+      set_power_from_response!(response)
+      response_successful?(response)
     end
 
     # Turns the light bulp on and returns it's state.
-    # @return [Boolean] The state
+    # @return [Boolean] success of the operation
     #
     def on
-      response = put("state", on: true)
-      @state = get_state_from_response(response)
+      response = put('state', on: true)
+      set_power_from_response!(response)
+      response_successful?(response)
     end
 
     # Turns the light bulp off and returns it's state.
-    # @return [Boolean] The state
+    # @return [Boolean] success of the operation
     #
     def off
-      response = put("state", on: false)
-      @state = get_state_from_response(response)
+      response = put('state', on: false)
+      set_power_from_response!(response)
+      response_successful?(response)
+    end
+
+    # Invokes the alert sequence on the light bulp.
+    # @return [Boolean] success of the operation
+    #
+    def alert
+      response = put('state', alert: 'lselect')
+      response_successful?(response)
+    end
+
+    # Sets the color for the lightbulp.
+    # @see Color#initialize
+    # @return [Boolean] success of the operation
+    #
+    def set_color(opts = {})
+      color = Color.new(opts)
+      response = put('state', color.to_h)
+
+      response_successful?(response)
     end
 
     private
@@ -47,18 +72,34 @@ module HueBridge
       $stderr.puts(msg)
     end
 
-    def get_state_from_response(response)
+    def set_power_from_response!(response)
       regex = /success.*\/lights\/\d*\/state\/on.*(?<state>true|false)\}\}\]/
+      match = response.body.match(regex) || {}
+
+      @power = case match[:state]
+               when nil
+                log_error('Couldn\'t determin the power state from the response')
+                log_error(response.body)
+                false
+               when 'true'
+                true
+               when 'false'
+                false
+               end
+    end
+
+    def response_successful?(response)
+      regex = %r((?<state>success|error))
       match = response.body.match(regex) || {}
 
       case match[:state]
       when nil
-        log_error("Couldn't determin the state from the response")
+        log_error("Don't know how to handle the response")
         log_error(response.body)
         false
-      when 'true'
+      when 'success'
         true
-      when 'false'
+      when 'error'
         false
       end
     end

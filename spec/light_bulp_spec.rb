@@ -4,9 +4,9 @@ module HueBridge
   describe LightBulp do
     subject do
       LightBulp.new(
-        hue_bridge_ip: '10.100.198.4',
-        user_id: '871baa6b48b3a42af620f2509a1f',
-        light_bulp_id: 1
+        hue_bridge_ip: '192.168.1.26',
+        user_id: 'mAq0G-2UyTmQ-YQq9F3U3KuFDdA3vHUw5TMmTruU',
+        light_bulp_id: 2
       )
     end
 
@@ -21,7 +21,7 @@ module HueBridge
     describe "#off" do
       it "turns the light off" do
         VCR.use_cassette('light_bulp_off') do
-          expect(subject.off).to be_falsy
+          expect(subject.off).to be_truthy
         end
       end
     end
@@ -30,7 +30,31 @@ module HueBridge
       it "toggles the light" do
         VCR.use_cassette('light_bulp_toggle') do
           expect(subject.toggle).to be_truthy
-          expect(subject.toggle).to be_falsy
+          expect(subject.power).to be_truthy
+          expect(subject.toggle).to be_truthy
+          expect(subject.power).to be_falsy
+        end
+      end
+    end
+
+    describe "#alert" do
+      it "puts the light in alert mode" do
+        VCR.use_cassette('light_bulp_alert') do
+          subject.on
+          expect(subject.alert).to be_truthy
+          subject.off
+        end
+      end
+    end
+
+    describe "#set_color" do
+      let(:attrs) {{ hue: 1, sat: 1, bri: 1 }}
+
+      it "sets the color for the ligt bulp" do
+        VCR.use_cassette('light_bulp_set_color') do
+          subject.on
+          expect(subject.set_color(attrs)).to be_truthy
+          subject.off
         end
       end
     end
