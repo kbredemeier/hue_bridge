@@ -1,4 +1,5 @@
 require "hue_bridge/version"
+require "hue_bridge/color"
 require "hue_bridge/light_bulp"
 
 begin
