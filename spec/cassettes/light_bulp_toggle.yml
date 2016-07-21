@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: http://192.168.1.26/api/mAq0G-2UyTmQ-YQq9F3U3KuFDdA3vHUw5TMmTruU/lights/2/state
+    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/state
     body:
       encoding: UTF-8
       string: '{"on":true}'
@@ -40,12 +40,12 @@ http_interactions:
       - application/json
     body:
       encoding: UTF-8
-      string: '[{"success":{"/lights/2/state/on":true}}]'
+      string: '[{"success":{"/lights/3/state/on":true}}]'
     http_version: 
-  recorded_at: Wed, 20 Jul 2016 20:54:32 GMT
+  recorded_at: Thu, 21 Jul 2016 08:34:27 GMT
 - request:
     method: put
-    uri: http://192.168.1.26/api/mAq0G-2UyTmQ-YQq9F3U3KuFDdA3vHUw5TMmTruU/lights/2/state
+    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/state
     body:
       encoding: UTF-8
       string: '{"on":false}'
@@ -83,7 +83,7 @@ http_interactions:
       - application/json
     body:
       encoding: UTF-8
-      string: '[{"success":{"/lights/2/state/on":false}}]'
+      string: '[{"success":{"/lights/3/state/on":false}}]'
     http_version: 
-  recorded_at: Wed, 20 Jul 2016 20:54:32 GMT
+  recorded_at: Thu, 21 Jul 2016 08:34:27 GMT
 recorded_with: VCR 3.0.3

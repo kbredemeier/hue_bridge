@@ -4,9 +4,9 @@ module HueBridge
   describe LightBulp do
     subject do
       LightBulp.new(
-        hue_bridge_ip: '192.168.1.26',
-        user_id: 'mAq0G-2UyTmQ-YQq9F3U3KuFDdA3vHUw5TMmTruU',
-        light_bulp_id: 2
+        hue_bridge_ip: '10.100.198.4',
+        user_id: '871baa6b48b3a42af620f2509a1f',
+        light_bulp_id: 3
       )
     end
 
@@ -54,6 +54,26 @@ module HueBridge
         VCR.use_cassette('light_bulp_set_color') do
           subject.on
           expect(subject.set_color(attrs)).to be_truthy
+          subject.off
+        end
+      end
+    end
+
+    describe "#store_state" do
+      it "it stores the state" do
+        VCR.use_cassette('light_bulp_store_state') do
+          expect(subject.store_state).to be_truthy
+          expect(subject.state).to be_a Hash
+        end
+      end
+    end
+
+    describe "#restore_state" do
+      it "it restores the state" do
+        VCR.use_cassette('light_bulp_restore_state') do
+          subject.on
+          expect(subject.store_state).to be_truthy
+          expect(subject.restore_state).to be_truthy
           subject.off
         end
       end

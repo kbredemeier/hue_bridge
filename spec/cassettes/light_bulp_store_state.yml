@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: put
-    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/state
+    method: get
+    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/
     body:
-      encoding: UTF-8
-      string: '{"on":true}'
+      encoding: US-ASCII
+      string: ''
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -40,7 +40,10 @@ http_interactions:
       - application/json
     body:
       encoding: UTF-8
-      string: '[{"success":{"/lights/3/state/on":true}}]'
+      string: '{"state": {"on":false,"bri":1,"hue":1,"sat":1,"effect":"none","xy":[0.3963,0.1681],"ct":270,"alert":"lselect","colormode":"hs","reachable":true},
+        "type": "Extended color light", "name": "Hue Lamp 3", "modelid": "LCT001",
+        "manufacturername": "Philips","uniqueid":"00:17:88:01:00:f5:76:1f-0b", "swversion":
+        "5.23.1.13187"}'
     http_version: 
   recorded_at: Thu, 21 Jul 2016 08:34:27 GMT
 recorded_with: VCR 3.0.3

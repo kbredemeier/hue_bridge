@@ -6,7 +6,9 @@ module HueBridge
   # light on, off and to toggle it.
   #
   class LightBulp
-    attr_reader :power
+    FORBIDDEN_STATS = %w(colormode reachable).freeze
+
+    attr_reader :power, :state
 
     # @param [Hash] options LightBulp options
     # @option options [String] :hue_bridge_ip The Hue Bridge's IP
@@ -66,7 +68,33 @@ module HueBridge
       response_successful?(response)
     end
 
+    # Stores the current state of the lightbulp.
+    # @return [Boolean] success of the operation
+    #
+    def store_state
+      response = get
+      success = !!(response.body =~ %r(state))
+      data = JSON.parse(response.body) if success
+      @state = data.fetch('state')
+      delete_forbidden_stats
+      success
+    end
+
+    # Restores the state of the lightbulp.
+    # @return [Boolean] success of the operation
+    #
+    def restore_state
+      response = put('state', state)
+      success = !!!(response.body =~ %r(error))
+    end
+
     private
+
+    def delete_forbidden_stats
+      FORBIDDEN_STATS.each do |attr|
+        @state.delete(attr)
+      end
+    end
 
     def log_error(msg)
       $stderr.puts(msg)
@@ -105,8 +133,15 @@ module HueBridge
     end
 
     def put(resource, params)
-      http = Net::HTTP.new(@ip)
       http.request_put("/#{path}/#{resource}", JSON.generate(params))
+    end
+
+    def get(resource = '')
+      http.request_get("/#{path}/#{resource}")
+    end
+
+    def http
+      @http ||= Net::HTTP.new(@ip)
     end
 
     def path

@@ -42,13 +42,13 @@ http_interactions:
       encoding: UTF-8
       string: '[{"success":{"/lights/3/state/on":true}}]'
     http_version: 
-  recorded_at: Thu, 21 Jul 2016 08:34:27 GMT
+  recorded_at: Thu, 21 Jul 2016 08:37:42 GMT
 - request:
-    method: put
-    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/state
+    method: get
+    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/
     body:
-      encoding: UTF-8
-      string: '{"alert":"lselect"}'
+      encoding: US-ASCII
+      string: ''
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -83,9 +83,55 @@ http_interactions:
       - application/json
     body:
       encoding: UTF-8
-      string: '[{"success":{"/lights/3/state/alert":"lselect"}}]'
+      string: '{"state": {"on":true,"bri":1,"hue":1,"sat":1,"effect":"none","xy":[0.3816,0.3766],"ct":251,"alert":"lselect","colormode":"hs","reachable":true},
+        "type": "Extended color light", "name": "Hue Lamp 3", "modelid": "LCT001",
+        "manufacturername": "Philips","uniqueid":"00:17:88:01:00:f5:76:1f-0b", "swversion":
+        "5.23.1.13187"}'
     http_version: 
-  recorded_at: Thu, 21 Jul 2016 08:34:27 GMT
+  recorded_at: Thu, 21 Jul 2016 08:37:42 GMT
+- request:
+    method: put
+    uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/state
+    body:
+      encoding: UTF-8
+      string: '{"on":true,"bri":1,"hue":1,"sat":1,"effect":"none","xy":[0.3816,0.3766],"ct":251,"alert":"lselect"}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 1 Aug 2011 09:00:00 GMT
+      Connection:
+      - close
+      Access-Control-Max-Age:
+      - '3600'
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE, HEAD
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '[{"success":{"/lights/3/state/on":true}},{"success":{"/lights/3/state/hue":1}},{"success":{"/lights/3/state/sat":1}},{"success":{"/lights/3/state/ct":251}},{"success":{"/lights/3/state/xy":[0.3816,0.3766]}},{"success":{"/lights/3/state/bri":1}},{"success":{"/lights/3/state/alert":"lselect"}},{"success":{"/lights/3/state/effect":"none"}}]'
+    http_version: 
+  recorded_at: Thu, 21 Jul 2016 08:37:42 GMT
 - request:
     method: put
     uri: http://10.100.198.4/api/871baa6b48b3a42af620f2509a1f/lights/3/state
@@ -128,5 +174,5 @@ http_interactions:
       encoding: UTF-8
       string: '[{"success":{"/lights/3/state/on":false}}]'
     http_version: 
-  recorded_at: Thu, 21 Jul 2016 08:34:27 GMT
+  recorded_at: Thu, 21 Jul 2016 08:37:42 GMT
 recorded_with: VCR 3.0.3
