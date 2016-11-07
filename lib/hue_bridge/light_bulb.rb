@@ -5,12 +5,12 @@ module HueBridge
   # Represents a light bulp. It provides an interface to turn the
   # light on, off and to toggle it.
   #
-  class LightBulp
+  class LightBulb
     FORBIDDEN_STATS = %w(colormode reachable).freeze
 
     attr_reader :power, :state
 
-    # @param [Hash] options LightBulp options
+    # @param [Hash] options LightBulb options
     # @option options [String] :hue_bridge_ip The Hue Bridge's IP
     # @option options [String] :user_id The user id to access the api
     # @option options [Integer] :light_bulp_id The id of the light bulp

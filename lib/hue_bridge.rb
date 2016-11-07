@@ -1,6 +1,6 @@
 require "hue_bridge/version"
 require "hue_bridge/color"
-require "hue_bridge/light_bulp"
+require "hue_bridge/light_bulb"
 
 begin
   require 'pry'
